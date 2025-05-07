@@ -103,6 +103,7 @@ button, .btn {
     border: none;
     outline: none;
     background: none;
+    opacity: 1 !important;
 }
 
 /* === LAYOUT === */
@@ -334,6 +335,9 @@ nav {
     display: flex;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
+    opacity: 1 !important;
+    z-index: 100;
+    position: relative;
 }
 
 .hero-image {

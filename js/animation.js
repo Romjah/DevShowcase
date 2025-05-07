@@ -21,13 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
             delay: 0.3
         });
         
+        // Assurer que les boutons sont visibles immédiatement puis animés
+        gsap.set('.cta-buttons .btn', { opacity: 1, y: 0 });
         gsap.from('.cta-buttons .btn', { 
-            duration: 1, 
-            y: 20, 
-            opacity: 0, 
+            duration: 0.8, 
+            scale: 0.9, 
             ease: 'power3.out',
             stagger: 0.2,
-            delay: 0.8
+            delay: 0.5
         });
         
         gsap.from('.hero-image', { 

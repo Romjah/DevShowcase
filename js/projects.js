@@ -68,7 +68,6 @@ function createProjectCards(projects) {
             : '';
         
         projectCard.innerHTML = `
-            <img src="${project.image}" alt="${project.title}" class="project-img">
             <div class="project-info">
                 <h3 class="project-title">${project.title}</h3>
                 <p class="project-description">${project.description}</p>
