@@ -234,4 +234,105 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-}); 
+    
+    // Désactiver le cache des images
+    disableImageCaching();
+});
+
+// Désactiver le cache des images pour éviter les problèmes de chargement
+function disableImageCaching() {
+    // Ajouter un paramètre aléatoire à toutes les images
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        const originalSrc = img.getAttribute('src');
+        if (originalSrc && originalSrc.startsWith('/img/')) {
+            const timestamp = new Date().getTime();
+            const separator = originalSrc.includes('?') ? '&' : '?';
+            img.setAttribute('src', `${originalSrc}${separator}v=${timestamp}`);
+        }
+    });
+    
+    // Ajouter un paramètre aléatoire aux images de fond en CSS
+    document.querySelectorAll('[style*="background-image"]').forEach(el => {
+        const style = el.getAttribute('style');
+        if (style && style.includes('/img/')) {
+            const timestamp = new Date().getTime();
+            const newStyle = style.replace(/(\/img\/[^")]+)/g, `$1?v=${timestamp}`);
+            el.setAttribute('style', newStyle);
+        }
+    });
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Load saved preferences
+    initTheme();
+    initLanguage();
+    
+    // Setup event listeners
+    if (themeToggle) themeToggle.addEventListener('click', initTheme);
+    if (langToggle) langToggle.addEventListener('click', initLanguage);
+    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close mobile menu when a link is clicked
+    navMenu.querySelectorAll('.nav-menu a').forEach(item => {
+        item.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+    
+    // Setup smooth scrolling
+    setupSmoothScrolling();
+    
+    // Désactiver le cache des images
+    disableImageCaching();
+    
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.error('Service Worker registration failed:', error);
+                });
+        });
+    }
+});
+
+// Add event listener for when images are dynamically added
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        if (mutation.addedNodes.length) {
+            mutation.addedNodes.forEach(node => {
+                // Check if the added node is an image or contains images
+                if (node.nodeName === 'IMG') {
+                    const originalSrc = node.getAttribute('src');
+                    if (originalSrc && originalSrc.startsWith('/img/')) {
+                        const timestamp = new Date().getTime();
+                        const separator = originalSrc.includes('?') ? '&' : '?';
+                        node.setAttribute('src', `${originalSrc}${separator}v=${timestamp}`);
+                    }
+                } else if (node.querySelectorAll) {
+                    const images = node.querySelectorAll('img');
+                    images.forEach(img => {
+                        const originalSrc = img.getAttribute('src');
+                        if (originalSrc && originalSrc.startsWith('/img/')) {
+                            const timestamp = new Date().getTime();
+                            const separator = originalSrc.includes('?') ? '&' : '?';
+                            img.setAttribute('src', `${originalSrc}${separator}v=${timestamp}`);
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+// Start observing the document with the configured mutation observer
+observer.observe(document.documentElement, { childList: true, subtree: true }); 
