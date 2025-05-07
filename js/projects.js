@@ -1,3 +1,6 @@
+// Import the translations and project data
+import { translations, projectsDataTranslations } from './translations.js';
+
 // Project data reference - actual data comes from translations.js
 let projectsData = [];
 
@@ -6,7 +9,7 @@ const projectsGrid = document.querySelector('.projects-grid');
 const filterButtons = document.querySelectorAll('.filter-btn');
 
 // Function to update projects based on language
-function updateProjectsLanguage(lang) {
+export function updateProjectsLanguage(lang) {
     // Update projects data from translations
     projectsData = projectsDataTranslations[lang] || projectsDataTranslations['fr'];
     
@@ -51,6 +54,19 @@ function createProjectCards(projects) {
             <span class="project-tag">${tag}</span>
         `).join('');
         
+        // Create link HTML with proper checks
+        const demoLink = project.demoLink && project.demoLink !== '#' && project.demoLink !== ''
+            ? `<a href="${project.demoLink}" class="project-link" target="_blank" rel="noopener" aria-label="Voir la démo">
+                 <i class="fas fa-external-link-alt"></i>
+               </a>` 
+            : '';
+            
+        const codeLink = project.codeLink && project.codeLink !== '#' 
+            ? `<a href="${project.codeLink}" class="project-link" target="_blank" rel="noopener" aria-label="Voir le code">
+                 <i class="fab fa-github"></i>
+               </a>` 
+            : '';
+        
         projectCard.innerHTML = `
             <img src="${project.image}" alt="${project.title}" class="project-img">
             <div class="project-info">
@@ -60,17 +76,24 @@ function createProjectCards(projects) {
                     ${tagsHTML}
                 </div>
                 <div class="project-links">
-                    <a href="${project.demoLink}" class="project-link" target="_blank" rel="noopener" aria-label="Voir la démo">
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                    <a href="${project.codeLink}" class="project-link" target="_blank" rel="noopener" aria-label="Voir le code">
-                        <i class="fab fa-github"></i>
-                    </a>
+                    ${demoLink}
+                    ${codeLink}
                 </div>
             </div>
         `;
         
         projectsGrid.appendChild(projectCard);
+        
+        // Add click event to whole card to open demo if available
+        if (project.demoLink && project.demoLink !== '#' && project.demoLink !== '') {
+            projectCard.addEventListener('click', (e) => {
+                // Don't trigger if clicking on a link already
+                if (!e.target.closest('.project-link')) {
+                    window.open(project.demoLink, '_blank', 'noopener');
+                }
+            });
+            projectCard.classList.add('clickable');
+        }
     });
 }
 
@@ -95,7 +118,7 @@ function filterProjects(category) {
 }
 
 // Initialize projects and add event listeners to filter buttons
-function initProjects() {
+export function initProjects() {
     // Set initial projects data based on current language
     const currentLang = localStorage.getItem('language') || 'fr';
     projectsData = projectsDataTranslations[currentLang] || projectsDataTranslations['fr'];

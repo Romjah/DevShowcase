@@ -1,5 +1,8 @@
+// Import real project data
+import projectsDataReal from './projects-data.js';
+
 // Translations object with French and English content
-const translations = {
+export const translations = {
     'fr': {
         // Navigation
         'nav-home': 'Accueil',
@@ -286,130 +289,5 @@ const translations = {
     }
 };
 
-// Project data translations
-const projectsDataTranslations = {
-    'fr': [
-        {
-            id: 1,
-            title: "GearConnect Platform",
-            description: "Plateforme IoT sécurisée pour la gestion de dispositifs connectés avec tableau de bord en temps réel.",
-            image: "img/project1.jpg",
-            tags: ["web", "sécurité", "IoT"],
-            category: "web",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 2,
-            title: "SecureAuth Mobile",
-            description: "Application d'authentification mobile avec vérification en deux étapes et gestion des identités.",
-            image: "img/project2.jpg",
-            tags: ["mobile", "sécurité", "authentification"],
-            category: "mobile",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 3,
-            title: "Portfolio Tech Responsive",
-            description: "Design moderne de portfolio tech avec animations GSAP et support multilingue.",
-            image: "img/project3.jpg",
-            tags: ["web", "design", "frontend"],
-            category: "design",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 4,
-            title: "Dashboard Sécurisé",
-            description: "Interface d'administration sécurisée avec visualisation de données et alertes en temps réel.",
-            image: "img/project4.jpg",
-            tags: ["web", "sécurité", "analytics"],
-            category: "web",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 5,
-            title: "IoT Device Manager",
-            description: "Application mobile de gestion d'appareils IoT avec interface utilisateur intuitive.",
-            image: "img/project5.jpg",
-            tags: ["mobile", "IoT", "api"],
-            category: "mobile",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 6,
-            title: "Système d'Analyse de Sécurité",
-            description: "Application web pour l'analyse et le monitoring de vulnérabilités de sécurité en temps réel.",
-            image: "img/project6.jpg",
-            tags: ["web", "sécurité", "backend"],
-            category: "web",
-            demoLink: "#",
-            codeLink: "#"
-        }
-    ],
-    'en': [
-        {
-            id: 1,
-            title: "GearConnect Platform",
-            description: "Secure IoT platform for connected device management with real-time dashboard.",
-            image: "img/project1.jpg",
-            tags: ["web", "security", "IoT"],
-            category: "web",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 2,
-            title: "SecureAuth Mobile",
-            description: "Mobile authentication application with two-factor verification and identity management.",
-            image: "img/project2.jpg",
-            tags: ["mobile", "security", "authentication"],
-            category: "mobile",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 3,
-            title: "Responsive Tech Portfolio",
-            description: "Modern tech portfolio design with GSAP animations and multilingual support.",
-            image: "img/project3.jpg",
-            tags: ["web", "design", "frontend"],
-            category: "design",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 4,
-            title: "Secure Dashboard",
-            description: "Secure admin interface with data visualization and real-time alerts.",
-            image: "img/project4.jpg",
-            tags: ["web", "security", "analytics"],
-            category: "web",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 5,
-            title: "IoT Device Manager",
-            description: "Mobile application for IoT device management with intuitive user interface.",
-            image: "img/project5.jpg",
-            tags: ["mobile", "IoT", "api"],
-            category: "mobile",
-            demoLink: "#",
-            codeLink: "#"
-        },
-        {
-            id: 6,
-            title: "Security Analysis System",
-            description: "Web application for real-time security vulnerability analysis and monitoring.",
-            image: "img/project6.jpg",
-            tags: ["web", "security", "backend"],
-            category: "web",
-            demoLink: "#",
-            codeLink: "#"
-        }
-    ]
-}; 
+// Project data translations - using the real data
+export const projectsDataTranslations = projectsDataReal; 

@@ -1,3 +1,7 @@
+// Import translations and project data
+import { translations, projectsDataTranslations } from './translations.js';
+import { updateProjectsLanguage } from './projects.js';
+
 // DOM Elements
 const header = document.getElementById('header');
 const themeToggle = document.getElementById('theme-toggle');
@@ -84,10 +88,8 @@ function updatePageLanguage() {
     // Update page language attribute
     document.documentElement.lang = currentLang;
     
-    // Update projects if the projects module is loaded
-    if (typeof updateProjectsLanguage === 'function') {
-        updateProjectsLanguage(currentLang);
-    }
+    // Update projects
+    updateProjectsLanguage(currentLang);
 }
 
 function initLanguage() {
