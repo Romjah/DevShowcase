@@ -1,0 +1,60 @@
+# Réglages du cache pour DevShowcase
+
+# Active le module de réécriture d'Apache
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
+# En-têtes de cache et d'expiration
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Par défaut
+    ExpiresDefault "access plus 1 month"
+    
+    # HTML et données
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType text/xml "access plus 0 seconds"
+    ExpiresByType application/json "access plus 0 seconds"
+    
+    # Images et médias (cache plus long)
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    
+    # CSS et JavaScript (durée moyenne)
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+# Configuration des en-têtes HTTP pour le cache
+<IfModule mod_headers.c>
+    # Forcer les navigateurs à valider les fichiers auprès du serveur
+    <FilesMatch "\.(html|php|js|css)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+        Header set Pragma "no-cache"
+    </FilesMatch>
+    
+    # Cache plus long pour les images
+    <FilesMatch "\.(svg|jpg|jpeg|png|gif|webp)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Empêche les problèmes de mise en cache avec les navigateurs
+    Header unset ETag
+    FileETag None
+    
+    # Sécurité et protection
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Compression GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript text/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule> 
