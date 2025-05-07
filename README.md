@@ -80,4 +80,4 @@ Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
 
 ---
 
-Conçu avec ❤️ par Romain JAHIER | contact@romanjahier.com 
+Conçu avec ❤️ par Romain JAHIER | romjah@orange.fr 
