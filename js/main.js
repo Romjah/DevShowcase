@@ -202,43 +202,6 @@ const animateOnScroll = () => {
     });
 };
 
-// Contact form submission
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        // We would add form validation and submission code here
-        // For now, we're just handling the form submission visually
-        
-        // If using FormSubmit, the form will be submitted automatically
-        // If using a custom endpoint, we would handle the submission with fetch
-    });
-}
-
-// Initialize when DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    revealHeroText();
-    animateOnScroll();
-    
-    // Smooth scroll for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 70,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
-    // Désactiver le cache des images
-    disableImageCaching();
-});
-
 // Désactiver le cache des images pour éviter les problèmes de chargement
 function disableImageCaching() {
     // Ajouter un paramètre aléatoire à toutes les images
@@ -263,45 +226,63 @@ function disableImageCaching() {
     });
 }
 
-// Initialize when DOM is loaded
+// Contact form submission
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        // We would add form validation and submission code here
+        // For now, we're just handling the form submission visually
+        
+        // If using FormSubmit, the form will be submitted automatically
+        // If using a custom endpoint, we would handle the submission with fetch
+    });
+}
+
+// Initialize when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Load saved preferences
+    // Initialiser le thème et la langue
     initTheme();
     initLanguage();
     
-    // Setup event listeners
-    if (themeToggle) themeToggle.addEventListener('click', initTheme);
-    if (langToggle) langToggle.addEventListener('click', initLanguage);
-    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => {
-        mobileMenuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
+    // Animations et effets
+    revealHeroText();
+    animateOnScroll();
     
-    // Close mobile menu when a link is clicked
-    navMenu.querySelectorAll('.nav-menu a').forEach(item => {
-        item.addEventListener('click', () => {
-            mobileMenuToggle.classList.remove('active');
-            navMenu.classList.remove('active');
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
-    
-    // Setup smooth scrolling
-    setupSmoothScrolling();
     
     // Désactiver le cache des images
     disableImageCaching();
     
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('Service Worker registered:', registration);
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
-                });
+    // Mobile menu handling
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
+        
+        // Close mobile menu when a link is clicked
+        if (navMenu) {
+            navMenu.querySelectorAll('a').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
     }
 });
 
