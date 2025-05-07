@@ -1,0 +1,9 @@
+{
+    "name": "devshowcase-portfolio",
+    "version": "1.0.0",
+    "description": "Portfolio professionnel de Romain JAHIER",
+    "scripts": {
+        "dev": "npx serve"
+    },
+    "author": "Romain JAHIER"
+}

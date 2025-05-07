@@ -1,0 +1,9 @@
+# Node.js
+node_modules/
+
+# Vercel
+.vercel/
+
+# OS
+.DS_Store
+Thumbs.db

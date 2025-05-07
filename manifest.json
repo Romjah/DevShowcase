@@ -1,0 +1,24 @@
+{
+  "name": "Romain JAHIER - Développeur Web Sécurisé",
+  "short_name": "Romain JAHIER",
+  "description": "Portfolio de Romain JAHIER, développeur web sécurisé et co-fondateur de GearConnect",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4361ee",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "lang": "fr-FR",
+  "dir": "ltr",
+  "orientation": "portrait-primary"
+} 
